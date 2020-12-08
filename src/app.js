@@ -21,12 +21,10 @@ app.get("/mario/:id", async (req,res) => {
     const id=req.params.id;
     try {
         const mario=await marioModel.findById(id);
-        if(mario) {
-            res.send(mario);
-
-        } else {
+        if(mario === null) {
             res.status(400).send({error: "Id not found"});
-
+        } else {
+            res.send(mario);
         }
     } catch(err) {
         res.status(400).send({error: err.message});
