@@ -14,13 +14,13 @@ app.use(bodyParser.json())
 // your code goes here
 
 app.get("/mario", async(req,res) => (
-    await marioModel.find()
+    res.send(await marioModel.find())
 ));
 
 app.get("/mario/:id", async (req,res) => {
     const id=req.params.id;
     try {
-        const mario=marioModel.findById(id);
+        const mario=await marioModel.findById(id);
         if(mario === null) {
             res.status(400).send({error: "Id not found"});
         } else {
